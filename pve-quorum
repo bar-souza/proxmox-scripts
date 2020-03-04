@@ -1,0 +1,27 @@
+#!/bin/bash
+timestamp() {
+  date +"%Y-%m-%d_%H-%M-%S"
+}
+check_no_quorum=$(pvecm status | grep Quorate | grep No)
+
+if [ $? -eq 0 ]; then
+
+pvecm expected 1
+
+else
+
+echo "$(timestamp): Tudo ok!"
+
+fi
+
+check_yes_quorum=$(pvecm status | grep Quorate | grep Yes)
+
+if [ $? -eq 1 ]; then
+
+pvecm expected 2
+
+else
+
+echo "$(timestamp): Tudo ok!"
+
+fi
